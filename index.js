@@ -9,16 +9,12 @@ class Capture extends Worker {
   }
 
   work(req, inputKey, outputKey){
-    if(err){
-      req.status(err).next();
+    if(outputKey){
+      req.body[outputKey] = camera.capture();
     } else {
-      if(outputKey){
-        req.body[outputKey] = camera.capture();
-      } else {
-        req.body = camera.capture();
-      }
-      req.next();
+      req.body = camera.capture();
     }
+    req.next();
   }
 }
 
